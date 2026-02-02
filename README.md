@@ -2,12 +2,5 @@
 
 > ### My projects
 
-* None currently
-
-
-
-## Github Statistics
-> ### Main
-![Metrics](https://metrics.lecoq.io/mystara2?template=classic&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&config.timezone=America%2FChicago)
-> ### Old
-![Metrics](https://metrics.lecoq.io/derek1256?template=classic&base=header%2C%20activity%2C%20community%2C%20repositories%2C%20metadata&base.indepth=false&base.hireable=false&base.skip=false&config.timezone=America%2FChicago)
+* [SSProxy](https://code.solarspire.net/SolarSpire/ssproxyhttps://code.solarspire.net/SolarSpire/ssproxy) | a Modern velocity plugin that aims to be a all-in-one plugin for proxy moderation
+* Monolith | not public, but is a paperMC plugin built for Lunar Satelite
