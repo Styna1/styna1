@@ -1,0 +1,45 @@
+$PromptUser = "Styna"
+
+[console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+
+function prompt {
+    $esc = [char]27
+    $nfLeft = [char]0xe0b6
+    $nfRight = [char]0xe0b4
+    $raquo = [char]0x00bb
+
+    $gitInfo = ""
+    if (Get-Command git -ErrorAction SilentlyContinue) {
+        $isRepo = git rev-parse --is-inside-work-tree 2>$null
+        if ($isRepo -eq "true") {
+            $branch = git branch --show-current 2>$null
+            if (-not $branch) { $branch = git describe --tags --exact-match 2>$null }
+            if (-not $branch) { $branch = git rev-parse --short HEAD 2>$null }
+
+            $gitInfo = " $esc[34m$branch$esc[0m"
+
+            git diff --cached --quiet 2>$null
+            if ($LASTEXITCODE -ne 0) {
+                $gitInfo += " $esc[32m$([char]0x271a)$esc[0m"
+            }
+
+            git diff --quiet 2>$null
+            if ($LASTEXITCODE -ne 0) {
+                $gitInfo += " $esc[31m$([char]0x25cf)$esc[0m"
+            }
+        }
+    }
+
+    $currentPath = $ExecutionContext.SessionState.Path.CurrentLocation.Path
+    $homePath = [Environment]::GetFolderPath("UserProfile")
+    if ($currentPath.StartsWith($homePath)) {
+        $currentPath = "~" + $currentPath.Substring($homePath.Length)
+    }
+
+    Write-Host "$currentPath$gitInfo"
+
+    Write-Host -NoNewline "$esc[34m$nfLeft$esc[44;30m$PromptUser$esc[0m$esc[34m$nfRight $esc[95m$raquo $esc[0m"
+
+    return " "
+}
